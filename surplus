@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 '''
 surplus
 '''
@@ -12,8 +12,8 @@ from PyQt4 import QtGui, QtCore
 from peaks import *
 
 style_file = 'style.qss'
-default_audio_dir = os.path.expanduser('~')# +'/audio/sounds/drum sounds/'
-line_height = 20
+default_audio_dir = os.path.expanduser('~/SAMPLES/')# +'~/SAMPLES/'
+line_height = 25
 
 exts = ['wav', 'mp3', 'ogg', 'flac', 'm4a']
 
@@ -43,7 +43,7 @@ def play(a_file):
 class playView(QtGui.QGraphicsView):
     def __init__(self):
         QtGui.QGraphicsView.__init__(self)
-        self.setBackgroundBrush(QtGui.QColor(50, 50, 50))
+        # self.setBackgroundBrush(QtGui.QColor(50, 50, 50))
 
         clearpen = QtGui.QPen(QtGui.QColor(0, 0, 0, 0))
 
@@ -106,12 +106,12 @@ class listItem(QtGui.QGraphicsRectItem):
         the_text += '/' if not is_file else ''
         self.label = QtGui.QGraphicsSimpleTextItem(the_text, parent=self)
         self.label.setPos(10, 5)
-        self.label.setBrush(QtCore.Qt.white)
         font = QtGui.QFont()
         # font = QtGui.QFont("Source Sans Pro")
         if not is_file:
             font.setPointSize(8)
             font.setBold(True)
+            self.label.setBrush(QtCore.Qt.white)
         self.label.setFont(font)
         self.playing = None
 
@@ -129,11 +129,12 @@ class listItem(QtGui.QGraphicsRectItem):
         QtGui.QGraphicsRectItem.setSelected(self, selected)
         if selected:
             # self.scene().parent.ensureVisible(self, xMargin=-50)
-            self.setBrush(QtGui.QColor(50, 102, 150))
+            self.setBrush(QtGui.QColor(00, 255, 255))
+            self.label.setBrush(QtCore.Qt.black)
             if self.is_file:
                 self.playSample()
         else:
-            self.setBrush(QtGui.QColor(50, 50, 50))
+            self.setBrush(QtGui.QColor(0, 0, 0))
             if self.playing:
                 os.killpg(self.playing.pid, signal.SIGTERM)
 
@@ -188,7 +189,7 @@ class fileList(QtGui.QGraphicsScene):
     def __init__(self, path, parent=None):
         QtGui.QGraphicsScene.__init__(self, parent)
         self.parent = parent
-        self.setBackgroundBrush(QtGui.QColor(50, 50, 50))
+        # self.setBackgroundBrush(QtGui.QColor(50, 50, 50))
 
         self.items = []
         self.prev_dir = None
