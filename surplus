@@ -108,6 +108,7 @@ class listItem(QtGui.QGraphicsRectItem):
         self.label.setPos(10, 5)
         font = QtGui.QFont()
         # font = QtGui.QFont("Source Sans Pro")
+        self.label.setBrush(QtGui.QColor(0, 170, 255))
         if not is_file:
             font.setPointSize(8)
             font.setBold(True)
@@ -135,6 +136,7 @@ class listItem(QtGui.QGraphicsRectItem):
                 self.playSample()
         else:
             self.setBrush(QtGui.QColor(0, 0, 0))
+            self.label.setBrush(QtGui.QColor(00, 255, 255))
             if self.playing:
                 os.killpg(self.playing.pid, signal.SIGTERM)
 
@@ -189,7 +191,7 @@ class fileList(QtGui.QGraphicsScene):
     def __init__(self, path, parent=None):
         QtGui.QGraphicsScene.__init__(self, parent)
         self.parent = parent
-        # self.setBackgroundBrush(QtGui.QColor(50, 50, 50))
+        self.setBackgroundBrush(QtGui.QColor(0, 0, 0))
 
         self.items = []
         self.prev_dir = None
