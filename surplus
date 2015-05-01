@@ -33,12 +33,16 @@ def getLength(a_file):
         finished.split()[1][:-1], '%H:%M:%S.%f'
         ).time()
 
-
+# Play the sample using mplayer with Jack output
 def play(a_file):
-    return subprocess.Popen(['play', '-q', a_file],
+    #client_name = something that counts up from zero
+    #print "client_name is"
+    #print client_name
+    #TODO: make jack client name "Surplus 02", etc, something unique each time that starts with "Surplus"
+    # change 'jack' to 'jack:name="Surplus' 
+    return subprocess.Popen(['mplayer', '-ao', 'jack', '-nolirc', a_file],
                             stdout=subprocess.PIPE,
                             preexec_fn=os.setsid)
-
 
 class playView(QtGui.QGraphicsView):
     def __init__(self):
